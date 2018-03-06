@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My App</title>
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="index.js" defer></script>
+  <style>
+    .strike {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <router-view></router-view>
+  </div>
+</body>
+</html>
+
+<template id="home-page">
+  <div>
+    <h1>{{ welcome }}</h1>
+    <div v-for="task in tasks">
+      <!-- <h3 v-if="!task.completed" v-on:click="toggleCompleted(task)">{{ task.task }}</h3> -->
+      <h3 v-bind:class="{strike: task.completed}" v-on:click="toggleCompleted(task)">{{task.id}} - {{ task.text }}</h3>
+    </div>
+    <p> Total of tasks: {{ incompleteTasks() }}</p>
+    <button v-on:click="deleteAllTasks()">Delete all Tasks</button>
+    <form>
+      <div>
+        Task text: <input type="text" v-model="task.text">
+      </div>
+      <button v-on:click="addTask()">Add Task</button>
+    </form>
+    <form>
+      <div>
+        <h3>Enter the task number and text to change that task</h3>
+        Task ID: <input type="text" v-model="chngeTask.id">
+        Task Text: <input type="text" v-model="chngeTask.text">
+        <button v-on:click="changeTask()">Change Task</button>
+      </div>
+    </form>
+  </div>
+
+</template>
